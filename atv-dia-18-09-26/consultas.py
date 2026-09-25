@@ -11,7 +11,8 @@ def listar_livros(session):
 
 def livros_por_autor(session, nome_autor):
     # TODO: liste os livros de um autor informado pelo nome.
-    stmt = select(Autor).where(Autor.nome.ilike(f"%{nome_autor}%"))
+    nome_autor = input("Digite o nome do Autor do livro que procura? ")
+    stmt = select(Autor).where(Autor.nome.ilike(nome_autor))
     autor = session.scalars(stmt).first()
     if autor:
         for livro in autor.livros:
@@ -21,7 +22,8 @@ def livros_por_autor(session, nome_autor):
 
 def buscar_livros(session, trecho):
     # TODO: busque livros por parte do título.
-    stmt = select(Livro).where(Livro.titulo.ilike(f"%{trecho}%"))
+    trecho = input("Digite um trecho do titulo de livro que procura? ")
+    stmt = select(Livro).where(Livro.titulo.ilike(trecho))
     livros = session.scalars(stmt).all()
     for livro in livros:
         print(f"- {livro.titulo} (Autor: {livro.autor.nome})")
@@ -35,7 +37,8 @@ def listar_autores_com_quantidade(session):
 
 def detalhes_livro(session, titulo):
     # TODO: mostre título, ano, autor e país do autor.
-    stmt = select(Livro).where(Livro.titulo.ilike(f"%{titulo}%"))
+    titulo = input("Digite o titulo de livro que procura? ")
+    stmt = select(Livro).where(Livro.titulo.ilike(titulo))
     livro = session.scalars(stmt).first()
     if livro:
         print(f"Detalhes:")
